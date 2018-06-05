@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_post_author, only: [:edit, :update, :destroy]
 
   def index
     @posts = Post.all
@@ -20,16 +22,12 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
   end
 
   def edit
-    @post = Post.find(params[:id])
   end
 
   def update
-    @post = Post.find(params[:id])
-
     if @post.update(post_params)
       redirect_to @post, notice: 'Successfully updated record'
     else
@@ -38,8 +36,6 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
-
     if @post.destroy
       redirect_to root_path, notice: 'Post deleted.'
     else
@@ -48,6 +44,16 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def ensure_post_author
+    if current_user != @post.user
+      redirect_to root_path, flash: { error: 'You must be the owner of this post to edit or delete it.' }
+    end
+  end
 
   def post_params
     params.require(:post).permit(:name, :description).merge(user: current_user)
