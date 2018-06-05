@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :ensure_post_author, only: [:edit, :update, :destroy]
 
   def index
-    @posts = Post.all
+    @posts = Post.all.order(created_at: :desc)
   end
 
   def new
