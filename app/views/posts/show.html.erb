@@ -1,17 +1,41 @@
-<h1><%= @post.name %></h1>
+<section>
+  <h1>
+    <% if @post.link.present? %>
+      <%= link_to @post.name, @post.link %>
+    <% else %>
+      <%= @post.name %>
+    <% end %>
+  </h1>
 
-<p>
-  <span>Submitted <%= time_ago_in_words(@post.created_at) %></span> by <span>@<%= @post.user.name %></span>
-</p>
+  <p>
+    <span>Submitted <%= time_ago_in_words(@post.created_at) %> ago</span> by <span><%= "@#{@post.user.name}" %></span>
+  </p>
 
-<p><%= @post.description %></p>
+  <p><%= @post.description %></p>
 
-<% if @post.link.present? %>
-  <%= link_to 'Visit Link', @post.link %>
-<% end %>
+  <%= link_to "Upvote #{@post.get_upvotes.size}", upvote_post_path(@post.id), method: :patch %>
+  <%= link_to "Downvote #{@post.get_downvotes.size}", downvote_post_path(@post.id), method: :patch %>
 
-<%= link_to "Upvote #{@post.get_upvotes.size}", upvote_post_path(@post.id), method: :patch %>
-<%= link_to "Downvote #{@post.get_downvotes.size}", downvote_post_path(@post.id), method: :patch %>
+  <% if current_user.present? && current_user == @post.user %>
+    <%= link_to 'Edit', edit_post_path(@post) %>
+    <%= link_to 'Delete', @post, method: :delete %>
+  <% end %>
+</section>
 
-<%= link_to 'Delete', @post, method: :delete %>
-<%= link_to 'Edit', edit_post_path(@post) %>
+<section>
+  <h2>Comments</h2>
+
+  <%= link_to 'Add comment', new_post_comment_path(@post) %>
+
+  <% @comments.each do |comment| %>
+    <div>
+      <p><%= comment.comment_body %></p>
+      <p><span>Posted <%= time_ago_in_words(comment.created_at) %> ago</span> by <span><%= "@#{comment.user.name}" %></span></p>
+
+      <% if current_user.present? && current_user == comment.user %>
+        <%= link_to 'Edit', edit_post_comment_path(@post, comment) %>
+        <%= link_to 'Delete', post_comment_path(@post, comment), method: :delete %>
+      <% end %>
+    </div>
+  <% end %>
+</section>

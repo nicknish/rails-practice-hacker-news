@@ -7,5 +7,6 @@ Rails.application.routes.draw do
       patch 'upvote', to: 'posts#upvote'
       patch 'downvote', to: 'posts#downvote'
     end
+    resources :comments, except: [:index, :show]
   end
 end

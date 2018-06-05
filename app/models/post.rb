@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   validates :link, url: { allow_nil: true }
 
   belongs_to :user
+  has_many :comments
 
   acts_as_votable
 end
