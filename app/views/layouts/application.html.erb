@@ -12,7 +12,17 @@
     <header>
       <%= link_to 'HNC', root_path %>
       <%= link_to 'New post', new_post_path %>
+
+      <% if current_user.present? %>
+        <span><%= current_user.name %></span>
+        <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+      <% end %>
     </header>
+
+    <% if notice.present? || alert.present? %>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    <% end %>
 
     <%= yield %>
   </body>
