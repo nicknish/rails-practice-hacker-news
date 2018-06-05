@@ -8,6 +8,9 @@
       <%= link_to 'Visit Link', post.link %>
     <% end %>
 
+    <%= link_to "Upvote #{post.get_upvotes.size}", upvote_post_path(post.id), method: :patch %>
+    <%= link_to "Downvote #{post.get_downvotes.size}", downvote_post_path(post.id), method: :patch %>
+
     <p>
       <span>Submitted <%= time_ago_in_words(post.created_at) %></span> by <span>@<%= post.user.name %></span>
     </p>

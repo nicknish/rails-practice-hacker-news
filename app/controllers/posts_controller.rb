@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :upvote, :downvote]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
   before_action :ensure_post_author, only: [:edit, :update, :destroy]
 
   def index
@@ -21,11 +21,9 @@ class PostsController < ApplicationController
     end
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @post.update(post_params)
@@ -41,6 +39,16 @@ class PostsController < ApplicationController
     else
       render :show, notice: 'Sorry there'
     end
+  end
+
+  def upvote
+    current_user.likes @post
+    redirect_back fallback_location: root_path
+  end
+
+  def downvote
+    current_user.dislikes @post
+    redirect_back fallback_location: root_path
   end
 
   private

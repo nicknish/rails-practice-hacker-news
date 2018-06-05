@@ -3,4 +3,6 @@ class Post < ApplicationRecord
   validates :link, url: { allow_nil: true }
 
   belongs_to :user
+
+  acts_as_votable
 end
