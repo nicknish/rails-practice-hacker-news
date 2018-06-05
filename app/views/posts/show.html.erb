@@ -1,0 +1,4 @@
+<h1><%= @post.name %></h1>
+<p><%= @post.description %></p>
+<%= link_to 'Delete', @post, method: :delete %>
+<%= link_to 'Edit', edit_post_path(@post) %>
