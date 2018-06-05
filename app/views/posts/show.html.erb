@@ -1,4 +1,13 @@
 <h1><%= @post.name %></h1>
+
+<% if @post.link.present? %>
+  <%= link_to 'Visit Link', @post.link %>
+<% end %>
+
+<p>
+  <span>Submitted <%= time_ago_in_words(@post.created_at) %></span> by <span>@<%= @post.user.name %></span>
+</p>
 <p><%= @post.description %></p>
+
 <%= link_to 'Delete', @post, method: :delete %>
 <%= link_to 'Edit', edit_post_path(@post) %>

@@ -1,9 +1,15 @@
 <% @posts.each do |post| %>
   <div>
     <%= link_to post do %>
-      <h4><%= post.name %></h4>
+      <h2><%= post.name %></h2>
     <% end %>
-    <span>Posted by <%= post.user.name %></span>
-    <p><%= post.description %></p>
+
+    <% if post.link.present? %>
+      <%= link_to 'Visit Link', post.link %>
+    <% end %>
+
+    <p>
+      <span>Submitted <%= time_ago_in_words(post.created_at) %></span> by <span>@<%= post.user.name %></span>
+    </p>
   </div>
 <% end %>
