@@ -3,6 +3,7 @@
     <%= link_to post do %>
       <h4><%= post.name %></h4>
     <% end %>
+    <span>Posted by <%= post.user.name %></span>
     <p><%= post.description %></p>
   </div>
 <% end %>

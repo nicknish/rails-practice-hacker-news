@@ -1,3 +1,5 @@
 class Post < ApplicationRecord
-  validates :name, :description, presence: true
+  validates :name, :description, :user, presence: true
+
+  belongs_to :user
 end
