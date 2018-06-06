@@ -1,19 +1,3 @@
 <% @posts.each do |post| %>
-  <div>
-    <h2>
-      <% if post.link.present? %>
-        <%= link_to post.name, post.link %>
-      <% else %>
-        <%= post.name %>
-      <% end %>
-    </h2>
-
-    <%= link_to "View Comments (#{post.comments.size})", post %>
-    <%= link_to "Upvote #{post.get_upvotes.size}", upvote_post_path(post.id), method: :patch %>
-    <%= link_to "Downvote #{post.get_downvotes.size}", downvote_post_path(post.id), method: :patch %>
-
-    <p>
-      <span>Submitted <%= time_ago_in_words(post.created_at) %> ago</span> by <span>@<%= post.user.name %></span>
-    </p>
-  </div>
+  <%= render 'posts/post', post: post %>
 <% end %>

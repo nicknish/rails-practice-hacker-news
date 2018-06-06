@@ -11,14 +11,24 @@
   <body>
     <%= render 'global/header' %>
 
-    <% if flash[:notice].present? || notice.present? %>
-      <p class="notice"><%= flash[:notice] || notice %></p>
-    <% end %>
+    <div class="container">
+      <% if flash[:notice].present? || notice.present? %>
+        <div class="notification is-secondary">
+          <button class="delete"></button>
+          <%= flash[:notice] || notice %>
+        </div>
+      <% end %>
 
-    <% if flash[:error].present? || alert.present? %>
-      <p class="alert"><%= flash[:error] || alert %></p>
-    <% end %>
+      <% if flash[:error].present? || alert.present? %>
+        <div class="notification is-danger">
+          <button class="delete"></button>
+          <%= flash[:error] || alert %>
+        </div>
+      <% end %>
+    </div>
 
-    <%= yield %>
+    <main class="container">
+      <%= yield %>
+    </main>
   </body>
 </html>

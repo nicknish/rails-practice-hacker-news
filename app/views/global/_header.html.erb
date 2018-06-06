@@ -1,21 +1,23 @@
 <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <%= link_to 'HackerNews Clone', root_path, class: 'navbar-item' %>
+  <div class="container">
+    <div class="navbar-brand">
+      <%= link_to 'HackerNews Clone', root_path, class: 'navbar-item' %>
 
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
 
-  <div class="navbar-menu" id="navMenu">
-    <div class="navbar-end">
-      <%= link_to '+ Post', new_post_path, class: 'navbar-item' %>
-      <% if current_user.present? %>
-        <span class="navbar-item"><%= current_user.name %></span>
-        <%= link_to 'Logout', destroy_user_session_path, class: 'navbar-item', method: :delete %>
-      <% end %>
+    <div class="navbar-menu" id="navMenu">
+      <div class="navbar-end">
+        <%= link_to '+ Post', new_post_path, class: 'navbar-item' %>
+        <% if current_user.present? %>
+          <span class="navbar-item"><%= current_user.name %></span>
+          <%= link_to 'Logout', destroy_user_session_path, class: 'navbar-item', method: :delete %>
+        <% end %>
+      </div>
     </div>
   </div>
 </nav>

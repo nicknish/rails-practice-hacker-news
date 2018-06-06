@@ -1,5 +1,5 @@
-<section>
-  <h1>
+<section class="content">
+  <h1 class="title is-2 is-marginless">
     <% if @post.link.present? %>
       <%= link_to @post.name, @post.link %>
     <% else %>
@@ -7,34 +7,34 @@
     <% end %>
   </h1>
 
-  <p>
+  <p class="is-size-7">
     <span>Submitted <%= time_ago_in_words(@post.created_at) %> ago</span> by <span><%= "@#{@post.user.name}" %></span>
   </p>
 
   <p><%= @post.description %></p>
 
-  <%= link_to "Upvote #{@post.get_upvotes.size}", upvote_post_path(@post.id), method: :patch %>
-  <%= link_to "Downvote #{@post.get_downvotes.size}", downvote_post_path(@post.id), method: :patch %>
+  <%= link_to "Upvote #{@post.get_upvotes.size}", upvote_post_path(@post.id), class: 'button', method: :patch %>
+  <%= link_to "Downvote #{@post.get_downvotes.size}", downvote_post_path(@post.id), class: 'button', method: :patch %>
 
   <% if current_user.present? && current_user == @post.user %>
-    <%= link_to 'Edit', edit_post_path(@post) %>
-    <%= link_to 'Delete', @post, method: :delete %>
+    <%= link_to 'Edit', edit_post_path(@post), class: 'button' %>
+    <%= link_to 'Delete', @post, class: 'button is-danger is-outlined', method: :delete %>
   <% end %>
 </section>
 
 <section>
-  <h2>Comments</h2>
+  <h2 class="title is-4">Comments</h2>
 
-  <%= link_to 'Add comment', new_post_comment_path(@post) %>
+  <%= link_to 'Add comment', new_post_comment_path(@post), class: 'button' %>
 
   <% @comments.each do |comment| %>
-    <div>
+    <div class="box content">
       <p><%= comment.comment_body %></p>
       <p><span>Posted <%= time_ago_in_words(comment.created_at) %> ago</span> by <span><%= "@#{comment.user.name}" %></span></p>
 
       <% if current_user.present? && current_user == comment.user %>
-        <%= link_to 'Edit', edit_post_comment_path(@post, comment) %>
-        <%= link_to 'Delete', post_comment_path(@post, comment), method: :delete %>
+        <%= link_to 'Edit', edit_post_comment_path(@post, comment), class: 'button'  %>
+        <%= link_to 'Delete', post_comment_path(@post, comment), class: 'button is-danger is-outlined', method: :delete %>
       <% end %>
     </div>
   <% end %>
