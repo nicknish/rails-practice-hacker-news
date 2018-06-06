@@ -9,15 +9,7 @@
   </head>
 
   <body>
-    <header>
-      <%= link_to 'HNC', root_path %>
-      <%= link_to 'New post', new_post_path %>
-
-      <% if current_user.present? %>
-        <span><%= current_user.name %></span>
-        <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
-      <% end %>
-    </header>
+    <%= render 'global/header' %>
 
     <% if flash[:notice].present? || notice.present? %>
       <p class="notice"><%= flash[:notice] || notice %></p>
